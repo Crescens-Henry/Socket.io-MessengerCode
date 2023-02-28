@@ -17,23 +17,30 @@ $(function () {
 
   $nickForm.submit((e) => {
     e.preventDefault();
-    socket.emit("new user", $nickname.val(), (data) => {
-      if (data) {
-        $("#nickWrap").hide();
-        // $('#contentWrap').show();
-        document.querySelector("#contentWrap").style.display = "flex";
-        $("#message").focus();
-      } else {
-        $nickError.html(`
+    if ($nickname.val() == "") {
+      $nickError.html(`
             <div class="alert alert-danger">
-              That username already Exists.
+              Usuario vacio, intente de nuevo.
             </div>
           `);
-      }
-    });
-    $nickname.val("");
+    } else {
+      socket.emit("new user", $nickname.val(), (data) => {
+        if (data) {
+          $("#nickWrap").hide();
+          // $('#contentWrap').show();
+          document.querySelector("#contentWrap").style.display = "flex";
+          $("#message").focus();
+        } else {
+          $nickError.html(`
+            <div class="alert alert-danger">
+              Usuario existente, intente de nuevo
+            </div>
+          `);
+        }
+      });
+      $nickname.val("");
+    }
   });
-  
 
   // events
   $messageForm.submit((e) => {
@@ -65,7 +72,6 @@ $(function () {
       displayMsg(msgs[i]);
     }
   });
-
 
   function displayMsg(data) {
     $chat.append(
