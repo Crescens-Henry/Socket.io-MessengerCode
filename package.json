@@ -15,7 +15,7 @@
     "express-fileupload": "^1.4.0",
     "formidable": "^2.1.1",
     "fs": "^0.0.1-security",
-    "mongoose": "^5.13.16",
+    "mongoose": "^5.13.20",
     "preset-env": "^8.0.11",
     "socket.io": "^4.6.1",
     "socketio-file-upload": "^0.7.3"
